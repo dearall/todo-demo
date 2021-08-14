@@ -14,15 +14,24 @@ ext {
 
 publishing {
     publications {
-        model(MavenPublication) {
+        mavenJava(MavenPublication) {
             from components.java
-//            artifactId project.name
+            artifactId project.name
 
             artifact sourcesJar
             artifact javadocJar
 
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+
             pom {
-                name = "Gradle CloudBees plugin"
+                name = "Gradle todo web project"
                 description = 'Gradle plugin for managing applications and databases on CloudBees RUN@cloud.'
                 url = "https://github.com/dearall/todo-demo.git"
                 inceptionYear = '2021'
