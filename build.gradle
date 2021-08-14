@@ -36,10 +36,26 @@ tasks.register('report') {
     dependsOn(gradle.includedBuild('todo').task(':web:reportAll'))
 }
 
+tasks.register('assemble') {
+    group = 'Build'
+    description = 'Assembles and tests this project'
+    dependsOn(gradle.includedBuild('todo').task(':model:assemble'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:assemble'))
+    dependsOn(gradle.includedBuild('todo').task(':web:assemble'))
+}
+
 tasks.register('build') {
     group = 'Build'
     description = 'Assembles and tests this project'
     dependsOn(gradle.includedBuild('todo').task(':model:build'))
     dependsOn(gradle.includedBuild('todo').task(':repository:build'))
     dependsOn(gradle.includedBuild('todo').task(':web:build'))
+}
+
+tasks.register('publish') {
+    group = 'Publishing'
+    description = 'Assembles and tests this project'
+    dependsOn(gradle.includedBuild('todo').task(':model:publish'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:publish'))
+    dependsOn(gradle.includedBuild('todo').task(':web:publish'))
 }
