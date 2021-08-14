@@ -28,6 +28,14 @@ tasks.register('checkFeatures') {
     dependsOn(gradle.includedBuild('todo').task(':web:check'))
 }
 
+tasks.register('report') {
+    group = 'Reports'
+    description = 'Runs the integration tests'
+    dependsOn(gradle.includedBuild('todo').task(':model:reportAll'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:reportAll'))
+    dependsOn(gradle.includedBuild('todo').task(':web:reportAll'))
+}
+
 tasks.register('build') {
     group = 'Build'
     description = 'Assembles and tests this project'
