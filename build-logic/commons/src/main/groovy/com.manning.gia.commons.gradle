@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'com.manning.gia.versioning'
+    id 'com.manning.gia.jacoco'
+    id 'com.manning.gia.checkstyle'
+    id 'com.manning.gia.pmd'
+}
+
+group = 'com.manning.gia.todo'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+        vendor = JvmVendorSpec.ADOPTOPENJDK
+        implementation = JvmImplementation.VENDOR_SPECIFIC
+    }
+}
+
+task createBuildInfoFile {
+    dependsOn(classes)
+
+    doLast {
+        def buildInfoFile = new File("$buildDir/build-info.properties")
+        Properties props = new Properties()
+        props.setProperty('version', project.version.toString())
+        props.setProperty('build', project.version.build ?: '')
+        props.setProperty('timestamp', project.buildTimestamp)
+        props.store(buildInfoFile.newWriter(), null)
+    }
+}
+
+task reportAll(){
+    dependsOn(jacocoTestReport, checkstyleMain, checkstyleTest, pmdMain, pmdTest)
+    group("Reports")
+}
+
+check.dependsOn(reportAll)
+
+dependencies {
+    implementation(platform('com.manning.gia.platform:product-platform'))
+
+    testImplementation(platform('com.manning.gia.platform:test-platform'))
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testImplementation('junit:junit')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+}

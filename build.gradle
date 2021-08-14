@@ -1,0 +1,32 @@
+tasks.register('clean') {
+    group = 'Build'
+    description = 'Deletes the build directory'
+    dependsOn(gradle.includedBuild('todo').task(':model:clean'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:clean'))
+    dependsOn(gradle.includedBuild('todo').task(':web:clean'))
+}
+
+tasks.register('test') {
+    group = 'verification'
+    description = 'Runs the unit tests'
+    dependsOn(gradle.includedBuild('todo').task(':model:test'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:test'))
+    dependsOn(gradle.includedBuild('todo').task(':web:test'))
+}
+
+// This is an example of a lifecycle task that crosses build boundaries defined in the umbrella build.
+tasks.register('checkFeatures') {
+    group = 'verification'
+    description = 'Run all feature tests'
+    dependsOn(gradle.includedBuild('todo').task(':model:check'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:check'))
+    dependsOn(gradle.includedBuild('todo').task(':web:check'))
+}
+
+tasks.register('build') {
+    group = 'Build'
+    description = 'Assembles and tests this project'
+    dependsOn(gradle.includedBuild('todo').task(':model:build'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:build'))
+    dependsOn(gradle.includedBuild('todo').task(':web:build'))
+}

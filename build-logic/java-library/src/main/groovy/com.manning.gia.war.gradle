@@ -1,0 +1,19 @@
+plugins {
+    id 'com.manning.gia.commons'
+    id 'war'
+}
+
+ext.web_archive_base_name='todo'
+
+war {
+    dependsOn createBuildInfoFile
+    archiveBaseName = web_archive_base_name
+
+    archiveFileName = web_archive_base_name + '.war'
+    println "war archiveFileName: " + archiveFileName.get()
+
+    from(buildDir) {
+        include 'build-info.properties'
+        into('WEB-INF/classes')
+    }
+}

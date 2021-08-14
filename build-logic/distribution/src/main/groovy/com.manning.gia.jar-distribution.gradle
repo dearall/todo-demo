@@ -1,0 +1,47 @@
+plugins {
+    id('com.manning.gia.commons')
+    id('distribution')
+}
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+
+    println "sourcesJar archiveBaseName: "+archiveBaseName.get()
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+// id 'distribution'
+distributions {
+    main {
+        distributionBaseName = archivesBaseName
+        contents {
+            from{
+                libsDirectory
+            }
+        }
+    }
+    docs {
+        distributionBaseName = "$archivesBaseName-docs"
+        contents {
+            from(libsDirectory) {
+                include sourcesJar.archiveFileName.get()
+                include javadocJar.archiveFileName.get()
+            }
+        }
+    }
+}
+
+distTar.dependsOn(jar,sourcesJar,javadocJar)
+distZip.dependsOn(jar,sourcesJar,javadocJar)
+docsDistTar.dependsOn(jar,sourcesJar,javadocJar)
+docsDistZip.dependsOn(jar,sourcesJar,javadocJar)

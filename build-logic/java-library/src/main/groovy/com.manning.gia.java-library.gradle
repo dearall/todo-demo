@@ -1,0 +1,11 @@
+plugins {
+    id('com.manning.gia.commons')
+    id('java-library')
+}
+
+jar {
+    dependsOn createBuildInfoFile
+    from(buildDir) {
+        include 'build-info.properties'
+    }
+}

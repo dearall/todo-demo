@@ -1,0 +1,24 @@
+// == Define locations for build logic ==
+pluginManagement {
+    repositories {
+        gradlePluginPortal() // if pluginManagement.repositories looks like this, it can be omitted as this is the default
+    }
+    includeBuild('../build-logic')
+}
+
+// == Define locations for components ==
+dependencyResolutionManagement {
+    repositories {
+//      mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/central' }
+    }
+}
+includeBuild('../platforms')
+
+
+// == Define the inner structure of this component ==
+rootProject.name='todo'
+include 'model', 'repository', 'web'
+//include 'cloudbees-plugin'
+
+println 'This is executed during the initialization phase.'

@@ -1,0 +1,10 @@
+plugins {
+    id('com.manning.gia.report-aggregation')
+}
+
+dependencies {
+    // Trasitively collect coverage data from all features and their dependencies
+    aggregate('com.manning.gia.todo:model')
+    aggregate('com.manning.gia.todo:repository')
+    aggregate('com.manning.gia.todo:web')
+}

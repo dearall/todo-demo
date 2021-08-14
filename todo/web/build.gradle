@@ -1,0 +1,15 @@
+plugins {
+    id 'com.manning.gia.war'
+    id 'com.manning.gia.war-distribution'
+    id 'com.manning.gia.war-maven-publish'
+    id "org.gretty" version "3.0.5"
+}
+
+jar.enabled = false
+
+dependencies {
+    implementation project(':model')
+    implementation project(':repository')
+    providedCompile 'javax.servlet:javax.servlet-api'
+    runtimeOnly 'javax.servlet:jstl'
+}
