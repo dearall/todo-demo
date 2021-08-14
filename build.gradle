@@ -59,3 +59,10 @@ tasks.register('publish') {
     dependsOn(gradle.includedBuild('todo').task(':repository:publish'))
     dependsOn(gradle.includedBuild('todo').task(':web:publish'))
 }
+tasks.register('publishToMavenLocal') {
+    group = 'Publishing'
+    description = 'Assembles and tests this project'
+    dependsOn(gradle.includedBuild('todo').task(':model:publishToMavenLocal'))
+    dependsOn(gradle.includedBuild('todo').task(':repository:publishToMavenLocal'))
+    dependsOn(gradle.includedBuild('todo').task(':web:publishToMavenLocal'))
+}

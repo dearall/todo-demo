@@ -30,11 +30,18 @@ distributions {
             }
         }
     }
+    sources {
+        distributionBaseName = "$archivesBaseName-sources"
+        contents {
+            from(libsDirectory) {
+                include sourcesJar.archiveFileName.get()
+            }
+        }
+    }
     docs {
         distributionBaseName = "$archivesBaseName-docs"
         contents {
             from(libsDirectory) {
-                include sourcesJar.archiveFileName.get()
                 include javadocJar.archiveFileName.get()
             }
         }
@@ -43,5 +50,9 @@ distributions {
 
 distTar.dependsOn(jar,sourcesJar,javadocJar)
 distZip.dependsOn(jar,sourcesJar,javadocJar)
+
+sourcesDistTar.dependsOn(jar,sourcesJar)
+sourcesDistZip.dependsOn(jar,sourcesJar)
+
 docsDistTar.dependsOn(jar,sourcesJar,javadocJar)
 docsDistZip.dependsOn(jar,sourcesJar,javadocJar)

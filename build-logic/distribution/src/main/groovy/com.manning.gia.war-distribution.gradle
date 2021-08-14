@@ -25,18 +25,25 @@ artifacts {
 // id 'distribution'
 distributions {
     main {
-        distributionBaseName = archivesBaseName
+        distributionBaseName = web_archive_base_name
         contents {
             from{
                 libsDirectory
             }
         }
     }
-    docs {
-        distributionBaseName = "$archivesBaseName-docs"
+    sources {
+        distributionBaseName = web_archive_base_name + "-sources"
         contents {
             from(libsDirectory) {
                 include sourcesJar.archiveFileName.get()
+            }
+        }
+    }
+    docs {
+        distributionBaseName = web_archive_base_name + "-docs"
+        contents {
+            from(libsDirectory) {
                 include javadocJar.archiveFileName.get()
             }
         }
@@ -45,5 +52,9 @@ distributions {
 
 distTar.dependsOn(war,sourcesJar,javadocJar)
 distZip.dependsOn(war,sourcesJar,javadocJar)
-docsDistTar.dependsOn(war,sourcesJar,javadocJar)
-docsDistZip.dependsOn(war,sourcesJar,javadocJar)
+
+sourcesDistTar.dependsOn(war,sourcesJar)
+sourcesDistZip.dependsOn(war,sourcesJar)
+
+docsDistTar.dependsOn(war,javadocJar)
+docsDistZip.dependsOn(war,javadocJar)

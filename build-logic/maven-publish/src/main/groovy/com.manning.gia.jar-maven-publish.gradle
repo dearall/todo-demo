@@ -1,5 +1,6 @@
 plugins {
     id('com.manning.gia.commons')
+    id('com.manning.gia.jar-distribution')
     id('maven-publish')
 }
 
@@ -16,7 +17,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            artifactId project.name
+//            artifactId project.name
 
             artifact sourcesJar
             artifact javadocJar

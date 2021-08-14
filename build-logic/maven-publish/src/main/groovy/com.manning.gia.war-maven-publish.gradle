@@ -1,5 +1,6 @@
 plugins {
     id('com.manning.gia.commons')
+    id('com.manning.gia.war-distribution')
     id('maven-publish')
 }
 
@@ -16,7 +17,7 @@ publishing {
     publications {
         mavenWar(MavenPublication) {
             from components.web
-//            artifactId 'todo'
+            artifactId 'todo'
             println "web artifactId: "+ artifactId
 
             artifact sourcesJar
