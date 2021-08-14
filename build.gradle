@@ -14,6 +14,11 @@ tasks.register('test') {
     dependsOn(gradle.includedBuild('todo').task(':web:test'))
 }
 
+tasks.register('integrationTest') {
+    group = 'verification'
+    description = 'Runs the integration tests'
+    dependsOn(gradle.includedBuild('todo').task(':repository:check'))
+}
 // This is an example of a lifecycle task that crosses build boundaries defined in the umbrella build.
 tasks.register('checkFeatures') {
     group = 'verification'
