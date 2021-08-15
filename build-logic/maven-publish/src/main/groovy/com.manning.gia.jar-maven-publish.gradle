@@ -1,6 +1,5 @@
 plugins {
     id('com.manning.gia.commons')
-    id('com.manning.gia.jar-distribution')
     id('maven-publish')
 }
 

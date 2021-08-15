@@ -3,24 +3,26 @@ plugins {
     id('distribution')
 }
 
-task sourcesJar(type: Jar) {
+//task sourcesJar(type: Jar) {
+//    archiveBaseName = web_archive_base_name
+//    classifier 'sources'
+//    from sourceSets.main.allSource
+//
+//    println "sourcesJar archiveBaseName: "+archiveBaseName.get()
+//}
+
+sourcesJar{
     archiveBaseName = web_archive_base_name
-    classifier 'sources'
-    from sourceSets.main.allSource
-
-    println "sourcesJar archiveBaseName: "+archiveBaseName.get()
 }
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
+javadocJar{
     archiveBaseName = web_archive_base_name
-    classifier 'javadoc'
-    from javadoc.destinationDir
 }
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    archiveBaseName = web_archive_base_name
+//    classifier 'javadoc'
+//    from javadoc.destinationDir
+//}
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
 
 // id 'distribution'
 distributions {
@@ -32,6 +34,7 @@ distributions {
             }
         }
     }
+    /*
     sources {
         distributionBaseName = web_archive_base_name + "-sources"
         contents {
@@ -47,14 +50,14 @@ distributions {
                 include javadocJar.archiveFileName.get()
             }
         }
-    }
+    }*/
 }
 
 distTar.dependsOn(war,sourcesJar,javadocJar)
 distZip.dependsOn(war,sourcesJar,javadocJar)
-
+/*
 sourcesDistTar.dependsOn(war,sourcesJar)
 sourcesDistZip.dependsOn(war,sourcesJar)
 
 docsDistTar.dependsOn(war,javadocJar)
-docsDistZip.dependsOn(war,javadocJar)
+docsDistZip.dependsOn(war,javadocJar)*/

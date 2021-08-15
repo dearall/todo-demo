@@ -6,6 +6,7 @@ plugins {
     id 'com.manning.gia.pmd'
 }
 
+ext.web_archive_base_name='todo'
 group = 'com.manning.gia.todo'
 
 java {
@@ -27,6 +28,24 @@ task createBuildInfoFile {
         props.setProperty('timestamp', project.buildTimestamp)
         props.store(buildInfoFile.newWriter(), null)
     }
+}
+
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+
+    println "sourcesJar archiveBaseName: "+archiveBaseName.get()
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
 
 task reportAll(){

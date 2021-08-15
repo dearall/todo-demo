@@ -3,23 +3,6 @@ plugins {
     id('distribution')
 }
 
-task sourcesJar(type: Jar) {
-    classifier 'sources'
-    from sourceSets.main.allSource
-
-    println "sourcesJar archiveBaseName: "+archiveBaseName.get()
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
 // id 'distribution'
 distributions {
     main {
@@ -30,6 +13,7 @@ distributions {
             }
         }
     }
+    /*
     sources {
         distributionBaseName = "$archivesBaseName-sources"
         contents {
@@ -45,14 +29,14 @@ distributions {
                 include javadocJar.archiveFileName.get()
             }
         }
-    }
+    }*/
 }
 
 distTar.dependsOn(jar,sourcesJar,javadocJar)
 distZip.dependsOn(jar,sourcesJar,javadocJar)
-
+/*
 sourcesDistTar.dependsOn(jar,sourcesJar)
 sourcesDistZip.dependsOn(jar,sourcesJar)
 
 docsDistTar.dependsOn(jar,sourcesJar,javadocJar)
-docsDistZip.dependsOn(jar,sourcesJar,javadocJar)
+docsDistZip.dependsOn(jar,sourcesJar,javadocJar)*/
