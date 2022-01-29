@@ -6,8 +6,9 @@ plugins {
     id 'com.manning.gia.pmd'
 }
 
-ext.web_archive_base_name='todo'
 group = 'com.manning.gia.todo'
+
+ext.web_archive_base_name='todo'
 
 java {
     toolchain {
